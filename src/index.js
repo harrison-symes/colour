@@ -39,6 +39,6 @@ render(<App name='COLOUR' />, app)
 dispatch({type: 'INIT'})
 
 setInterval(() => {
-  let newBoard = tickColours.tickBoard(getState().colourArray)
+  let newBoard = tickColours(getState().colourArray)
   dispatch({type: 'TICK_BOARD', payload: newBoard})
 }, 5000)
