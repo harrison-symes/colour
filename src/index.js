@@ -15,6 +15,7 @@ document.querySelector('main').appendChild(app)
 const initialState = {
   route: '/',
   colourArray: Array(9).fill({}),
+  selectedColours: [],
   maxSize: 5,
   startSize: 3
 }
@@ -39,6 +40,6 @@ render(<App name='COLOUR' />, app)
 dispatch({type: 'INIT'})
 
 setInterval(() => {
-  let newBoard = tickColours(getState().colourArray)
+  let newBoard = tickColours(getState().colourArray, getState().selectedColours)
   dispatch({type: 'TICK_BOARD', payload: newBoard})
 }, 5000)

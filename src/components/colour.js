@@ -2,6 +2,9 @@ import React from 'react'
 import sizeOption from './partials/sizeOption'
 
 module.exports = ({state, dispatch}) => {
+  function selectColour(colour) {
+    dispatch({type: 'SELECT_COLOUR', payload: colour})
+  }
   function changeSize(e) {
     if (!isNaN(parseInt(e.target.value))) dispatch({type:'CHANGE_SIZE', payload: e.target.value})
   }
@@ -9,7 +12,7 @@ module.exports = ({state, dispatch}) => {
     var style = {
       "background": colour.colour
     };
-    return <span><div className="square" style={style}>
+    return <span><div onClick={() => selectColour(colour)} className="square" style={style}>
     </div></span>
   }
   function renderRow(row) {

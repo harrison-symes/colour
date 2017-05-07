@@ -1,4 +1,5 @@
 import randomiser from './randomiser'
+import clone from 'clone'
 //
 // function startTicker(board, dispatch) {
 //   setInterval(() => {
@@ -8,7 +9,6 @@ import randomiser from './randomiser'
 // }
 
 function tick(board, row, col, nextRow, nextCol) {
-  console.log({row, col, nextRow, nextCol});
   board[row][col] = board[nextRow][nextCol]
 }
 
@@ -19,11 +19,8 @@ function tickLoop(board) {
   let count = 0
   let flag = true
   while (row != 1 && col != 0 || flag) {
-    console.log({count});
-    console.log({row, col});
     let tempRow = incrementRow(row, col)
     let tempCol = incrementCol(row, col)
-    console.log({tempRow, tempCol});
     tick(board, row, col, tempRow, tempCol)
     col = tempCol
     row = tempRow
@@ -33,14 +30,51 @@ function tickLoop(board) {
     count++
   }
 }
-function tickBoard(board) {
-  console.log({board});
+
+// function tickAlt(board) {
+//   var copy = clone(board)
+//   for (var row = 0; row < board.length; row++) {
+//     for (var col = 0; col < board.length; col++) {
+//       console.log({row, col});
+//       if (row != 0 && col != 0) {
+//         let tempRow = incrementRow(row, col)
+//         let tempCol = incrementCol(row, col)
+//         copy[row][col] = clone(board[tempRow][tempCol])
+//       }
+//     }
+//   }
+//   return copy
+// }
+
+function tickBoard(board, selected) {
   if (board) {
     board[1][1] = board[1][0]
     tickLoop(board)
-    board[0][0] = randomiser.createColour()
+    board[0][0] = fillZeroIndex(board, selected)
   }
   return board
+}
+
+function fillZeroIndex(board, selected) {
+  let answer = randomiser.createColour()
+  console.log({selected});
+  if (selected.length > 0) {
+    selected.forEach((select) => {
+      let found = null
+      board.forEach((array) => {
+        array.forEach((el) => {
+          if (el.colour == select.colour) {
+            console.log("found match", {el, select});
+            found = el
+          }
+        })
+      })
+      console.log({found});
+      if (found == null) answer = select
+    })
+  }
+  console.log("randomising");
+  return answer
 }
 
 function incrementRow(row, col) {

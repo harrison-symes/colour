@@ -19,5 +19,8 @@ module.exports = (state, action) => {
     case 'TICK_BOARD':
       newState.colourArray = payload
       return newState
+    case 'SELECT_COLOUR':
+      newState.selectedColours.push(payload)
+      return newState
   }
 }
