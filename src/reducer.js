@@ -22,5 +22,10 @@ module.exports = (state, action) => {
     case 'SELECT_COLOUR':
       newState.selectedColours.push(payload)
       return newState
+    case 'REMOVE_SELECT':
+      newState.selectedColours.forEach((el, idx) => {
+        if (el.colour == payload.colour) newState.selectedColours.splice(idx, 1)
+      })
+      return newState
   }
 }

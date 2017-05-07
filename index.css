@@ -7,6 +7,16 @@ main {
   height: 20vh;
 }
 
-.row {
+.row, .select {
   display: inline-block
+}
+
+.selected {
+
+}
+
+.select {
+  margin-top: 10vh;
+  width: 15vh;
+  height: 15vh;
 }

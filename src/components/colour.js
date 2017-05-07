@@ -1,5 +1,6 @@
 import React from 'react'
 import sizeOption from './partials/sizeOption'
+import selected from './partials/selected'
 
 module.exports = ({state, dispatch}) => {
   function selectColour(colour) {
@@ -29,6 +30,7 @@ module.exports = ({state, dispatch}) => {
     <div className="squares">
       {renderSquares(state.colourArray)}
       {sizeOption(state, dispatch)}
+      {selected(state, dispatch)}
     </div>
   )
   console.log(state.colourArray);
