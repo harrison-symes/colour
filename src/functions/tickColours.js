@@ -8,27 +8,39 @@ import clone from 'clone'
 //   }, 5000)
 // }
 
-function tick(board, row, col, nextRow, nextCol) {
+function tick(board, row, col, nextRow, nextCol, square) {
+  console.log("calling tick on ", {row, col});
   board[row][col] = board[nextRow][nextCol]
 }
 
-function tickLoop(board) {
+function tickLoop(board, center) {
   console.log("tick");
-  var row = 1
-  var col = 0
+  var row = center
+  var col = center - 1
   let count = 0
+  var square = center - 1
   let flag = true
-  while (row != 1 && col != 0 || flag) {
-    let tempRow = incrementRow(row, col)
-    let tempCol = incrementCol(row, col)
-    tick(board, row, col, tempRow, tempCol)
-    col = tempCol
-    row = tempRow
-    if (flag) {
-      if (row == 1 && col == 0) flag = false
+  while (flag) {
+    console.log({square});
+    if (row == 0 && col == 0) flag = false
+    else if (row == square && col == square) {
+      console.log("new square");
+      tick(board, row, col, row, col -1)
+      col--
+      square--
+      console.log("post square change", {square, row, col});
+    } else {
+      let tempRow = incrementRow(row, col, square, board.length)
+      let tempCol = incrementCol(row, col, square, board.length)
+      tick(board, row, col, tempRow, tempCol)
+      col = tempCol
+      row = tempRow
+      console.log("increment col/row");
     }
     count++
+    // if (count > 15) break
   }
+  console.log("stopped");
 }
 
 // function tickAlt(board) {
@@ -48,8 +60,10 @@ function tickLoop(board) {
 
 function tickBoard(board, selected) {
   if (board) {
-    board[1][1] = board[1][0]
-    tickLoop(board)
+    let center = (board.length - 1) /2
+    tick(board, center, center, center, center - 1)
+    // board[center][center] = board[center][center - 1]
+    tickLoop(board, center)
     board[0][0] = fillZeroIndex(board, selected)
   }
   return board
@@ -77,15 +91,15 @@ function fillZeroIndex(board, selected) {
   return answer
 }
 
-function incrementRow(row, col) {
-  if (col == 0 && row < 2) return row + 1
-  else if (col == 2 && row > 0) return row - 1
+function incrementRow(row, col, square, length) {
+  if (col == (0 + square) && row < (length - 1 - square)) return row + 1
+  else if (col == (length - 1 - square) && row > (0 + square)) return row - 1
   else return row
 }
 
-function incrementCol(row, col) {
-  if (row == 2 && col < 2) return col + 1
-  else if (row == 0 && col > 0) return col - 1
+function incrementCol(row, col, square, length) {
+  if (row == (length - 1 - square) && col < (length - 1 - square)) return col + 1
+  else if (row == (0 + square) && col > (0 + square)) return col - 1
   return col
 }
 

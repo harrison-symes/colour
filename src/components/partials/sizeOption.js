@@ -2,14 +2,15 @@ import React from 'react'
 
 module.exports = (state, dispatch) => {
   function applyOptions(maxArray) {
-    return maxArray.map((el, idx) => {
-      return <option value={idx + 1}>{idx + 1}</option>
-    })
+    let arr = []
+    for (var i = 1; i < state.maxSize; i = i + 2) {
+      arr.push(<option value={i}>{i}</option>)
+    }
+    return arr
   }
-  console.log(applyOptions([0,0,0]));
   return (
     <select onChange={(e) => dispatch({type: 'CHANGE_SIZE', payload: e.target.value})}>
-      {applyOptions(Array(state.maxSize).fill(0))}
+      {applyOptions()}
     </select>
   )
 }

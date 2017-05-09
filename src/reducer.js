@@ -13,11 +13,13 @@ module.exports = (state, action) => {
       console.log(newState.colourArray);
       return newState
     case 'CHANGE_SIZE':
-      console.log({payload});
+      console.log("change to size", {payload});
       newState.colourArray = randomiser.populateArray(randomiser.generateArray(Number(payload)))
+      console.log("new board", newState.colourArray);
       return newState
     case 'TICK_BOARD':
       newState.colourArray = payload
+      console.log({payload});
       return newState
     case 'SELECT_COLOUR':
       newState.selectedColours.push(payload)

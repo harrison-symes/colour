@@ -16,8 +16,9 @@ const initialState = {
   route: '/',
   colourArray: Array(9).fill({}),
   selectedColours: [],
-  maxSize: 5,
-  startSize: 3
+  maxSize: 49,
+  startSize: 5,
+  interval: 200
 }
 
 var store = createStore(reducer, initialState)
@@ -38,8 +39,3 @@ subscribe(() => {
 render(<App name='COLOUR' />, app)
 
 dispatch({type: 'INIT'})
-
-setInterval(() => {
-  let newBoard = tickColours(getState().colourArray, getState().selectedColours)
-  dispatch({type: 'TICK_BOARD', payload: newBoard})
-}, 5000)

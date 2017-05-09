@@ -1,6 +1,7 @@
 import React from 'react'
-import sizeOption from './partials/sizeOption'
+import options from './options'
 import selected from './partials/selected'
+import tickColours from '../functions/tickColours'
 
 module.exports = ({state, dispatch}) => {
   function selectColour(colour) {
@@ -26,13 +27,19 @@ module.exports = ({state, dispatch}) => {
       return renderRow(row)
     })
   }
+  function startTicker(interval) {
+    console.log({interval});
+    setInterval(() => {
+      let newBoard = tickColours(state.colourArray, state.selectedColours)
+      dispatch({type: 'TICK_BOARD', payload: newBoard})
+    }, interval)
+  }
   return (
     <div className="squares">
       {renderSquares(state.colourArray)}
-      {sizeOption(state, dispatch)}
+      {options(state, dispatch)}
       {selected(state, dispatch)}
+
     </div>
   )
-  console.log(state.colourArray);
-  return <div>Hello</div>
 }
