@@ -1,0 +1,22 @@
+main {
+  text-align: center;
+}
+
+.square {
+  width: 2vh;
+  height: 2vh;
+}
+
+.row, .select {
+  display: inline-block
+}
+
+.selected {
+
+}
+
+.select {
+  margin-top: 10vh;
+  width: 15vh;
+  height: 15vh;
+}
