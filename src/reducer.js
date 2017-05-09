@@ -29,5 +29,8 @@ module.exports = (state, action) => {
         if (el.colour == payload.colour) newState.selectedColours.splice(idx, 1)
       })
       return newState
+    case 'CHANGE_SPEED':
+      newState.interval = payload
+      return newState
   }
 }

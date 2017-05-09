@@ -1,4 +1,5 @@
 import React from 'react'
+import tickColours from '../../functions/tickColours'
 
 module.exports = (state, dispatch) => {
   function startTicker(interval) {
